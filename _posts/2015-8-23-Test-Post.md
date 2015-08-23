@@ -3,14 +3,36 @@ layout: post
 title: GNU datamash介绍
 ---
 
+## Introduction
+[GNU datamash](http://www.gnu.org/software/datamash/)是一个在命令行下做基本统计汇总（例如均值，标准差，quantils，最大最小值等）的简单工具，对于经常需要在命令行下做一些data valadation和基本的统计汇总的人来说是一个非常有用的工具。
+
+```
+$ seq 12|paste - - -|datamash sum 1 sum 2 sum 3
+22      26      30
+```
+
+同时还可以分组进行以上的统计：
+
+```
+ $ seq 12|paste <(printf "%s\n" a b b c c c) - - | datamash -g 1 sum 2 mean 3
+ a       1       2
+ b       8       5
+ c       27      10
+```
+
+以前这种工作一般是写一些one-liner或者小脚本然后做alias实现的，实话说写多了容易忘。有了datamash之后就能轻松搞定了，速度也快了不少。
+
+## Install
+安装没什么可说的，debian的软件仓库里有，编译也是普通的configure make make install三部曲。
+
 ## Examples
-datamash的使用方法和一般的命令行程序相似，格式为`datamash [options] operation column [operation2 column2] ...`  
+datamash的使用方法和一般的命令行程序相似，格式为`datamash [options] operation column [operation2 column2] ...`，
 以下用例子说明使用方法：
 ```
 $ seq 12|paste - - -|datamash sum 1 sum 2 sum 3
 22      26      30
 ```
-首先`sum`就是operation，1 2 3都是列号。上面的命令就是对1，2，3列分别求和。  
+首先`sum`就是operation，1 2 3都是列号。上面的命令就是对1，2，3列分别求和。
 当然operation不止`sum`，`datamash --help`就可以看到，其中与数值统计相关的有：
 ```
 Numeric Grouping operations:
@@ -27,8 +49,7 @@ Statistical Grouping operations:
  b       8       5
  c       27      10
 ```
-以上的例子即是按第一列分组，并计算第二列的和以及第三列的均值。  
-值得注意的是，和uniq相似，如果输出没有排序，则分组的结果就会不正确：
+以上的例子即是按第一列分组，并计算第二列的和以及第三列的均值。值得注意的是，和uniq相似，如果输出没有排序，则分组的结果就会不正确：
 ```
 $ seq 12|paste <(printf "%s\n" a c b c b c) - - | datamash -g 1 sum 2 mean 3
 a       1       2
@@ -101,15 +122,14 @@ a,1,2
 b,8,5
 c,27,10
 ```
-除了对数据的统计以外，datamash还能做一些简单的文本和文件操作  
-例如对输入文件的转置：
+除了对数据的统计以外，datamash还能做一些简单的文本和文件操作。例如对输入文件的转置：
 ```
 $ seq 12|paste <(printf "%s\n" a b b c c c) - - | cat <(printf 'group\tlane1\tlane2\n') - |datamash transpose
 group   a       b       b       c       c       c
 lane1   1       3       5       7       9       11
 lane2   2       4       6       8       10      12
 ```
-同时还可以对输入文件进行文本统计与操作，这在日常工作中也是非常常用的
+同时还可以对输入文件进行文本统计与操作，这在日常工作中也是非常常用的。
 ```
 Textual/Numeric Grouping operations:
   count, first, last, rand        ##计数，第一个值，最后一个值，随机的一个值
