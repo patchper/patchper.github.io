@@ -25,14 +25,14 @@ $ seq 12|paste - - -|datamash sum 1 sum 2 sum 3
 安装没什么可说的，debian的软件仓库里有，编译也就是普通的./configure make make install三部曲。
 
 ## Examples
-datamash 的使用方法和一般的命令行程序相似，格式为datamash [options] operation column [operation2 column2] ...  
+datamash的使用方法和一般的命令行程序相似，格式为`datamash [options] operation column [operation2 column2] ...`  
 以下用例子说明使用方法：
 ```
 $ seq 12|paste - - -|datamash sum 1 sum 2 sum 3
 22      26      30
 ```
-首先sum就是operation，1 2 3都是列号。上面的命令就是对1，2，3列分别求和。
-当然operation不止sum，datamash --help就可以看到，其中与数值统计相关的有：
+首先`sum`就是operation，1 2 3都是列号。上面的命令就是对1，2，3列分别求和。
+当然operation不止`sum`，`datamash --hel`p就可以看到，其中与数值统计相关的有：
 ```
 Numeric Grouping operations:
   sum, min, max, absmin, absmax  ##求和，最小值，最大值，绝对值最小，绝对值最大
