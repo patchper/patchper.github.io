@@ -25,7 +25,7 @@ $ seq 12|paste - - -|datamash sum 1 sum 2 sum 3
 安装没什么可说的，debian的软件仓库里有，编译也就是普通的./configure make make install三部曲。
 
 ## Examples
-datamash 的使用方法和一般的命令行程序相似，格式为datamash [options] operation column [operation2 column2] ...
+datamash 的使用方法和一般的命令行程序相似，格式为datamash [options] operation column [operation2 column2] ...  
 以下用例子说明使用方法：
 ```
 $ seq 12|paste - - -|datamash sum 1 sum 2 sum 3
