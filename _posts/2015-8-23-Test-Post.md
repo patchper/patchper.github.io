@@ -41,7 +41,7 @@ Statistical Grouping operations:
   pstdev, sstdev, pvar, svar, mad, madraw    ##总体标准差，样本标准差，总体方差，样本方差，Median Absolute Deviation，Median Absolute Deviation raw
   pskew, sskew, pkurt, skurt, dpo, jarque    ##这里不太懂，可以去看文档。
 ```
-更多的时候需要的是对某一列进行分类汇总处理，这种情况在awk，perl里就要使用关联数组，但在datamash中只要在选项中使用`-g`参数指定分组的列号即可。
+更多的时候需要的是对某一列进行分类汇总处理，这种情况在awk，perl里就要使用关联数组，但在datamash中只要在选项中使用`-g`参数指定分组的列号（可以有多个）即可。
 ```
  $ seq 12|paste <(printf "%s\n" a b b c c c) - - | datamash -g 1 sum 2 mean 3
  a       1       2
@@ -114,4 +114,71 @@ datamash: invalid numeric input in line 6 field 3: ''
 $ seq 11|sed '1ia'|paste <(printf "%s\n" a b b c c c) - - | datamash --filler=0 --header-out -g 1 sum 2 mean 3
 datamash: invalid numeric input in line 1 field 2: 'a'
 ```
-## 
+有时输入文件不是tab分割的，就要使用`-t`参数指定分割：
+```
+$ seq 12|paste <(printf "%s\n" a b b c c c) - - |sed 's/\t/,/g' |datamash -t"," --filler=0 --header-out -g 1 sum 2 mean 3
+GroupBy(field-1),sum(field-2),mean(field-3)
+a,1,2
+b,8,5
+c,27,10
+```
+除了对数据的统计以外，datamash还能做一些简单的文本和文件操作  
+例如对输入文件的转置：
+```
+$ seq 12|paste <(printf "%s\n" a b b c c c) - - | cat <(printf 'group\tlane1\tlane2\n') - |datamash transpose
+group   a       b       b       c       c       c
+lane1   1       3       5       7       9       11
+lane2   2       4       6       8       10      12
+```
+同时还可以对输入文件进行文本统计与操作，这在日常工作中也是非常常用的
+```
+Textual/Numeric Grouping operations:
+  count, first, last, rand        ##计数，第一个值，最后一个值，随机的一个值
+  unique, collapse, countunique   ##用逗号分隔的唯一值，用逗号分隔的所有值，值的种类数
+```
+例子如下：
+```
+$ cat test 
+chr10   100154974       100155064       NR_031619
+chr10   101635333       101637093       NM_015221
+chr10   101639567       101640118       NM_015221
+chr10   101643767       101643966       NM_015221
+chr10   101645443       101645623       NM_015221
+chr10   101646056       101646389       NM_015221
+chr10   101648581       101648710       NM_015221
+chr10   101654702       101654807       NM_015221
+chr10   101656023       101656154       NM_015221
+chr10   101657842       101658042       NM_015221
+chr10   101658499       101658517       NM_015221
+chr10   101659675       101659823       NM_015221
+chr10   101667751       101667851       NM_015221
+chr10   101668709       101668903       NM_015221
+chr10   101686965       101687056       NR_024130
+chr10   101687916       101687997       NR_024130
+chr10   101714970       101716962       NM_015221
+chr10   101715430       101715589       NR_024130
+chr10   101716238       101716348       NR_024130
+chr10   101716545       101718755       NR_024130
+$ cat test |datamash -g 4 count 4      ##统计第四列的个数
+NR_031619       1
+NM_015221       13
+NR_024130       2
+NM_015221       1
+NR_024130       3
+$ cat test |datamash -g 1,4 unique 2 unique 3
+chr10   NR_031619       100154974       100155064
+chr10   NM_015221       101635333,101639567,101643767,101645443,101646056,101648581,101654702,101656023,101657842,101658499,101659675,101667751,101668709  101637093,101640118,101643966,101645623,101646389,101648710,101654807,101656154,101658042,101658517,101659823,101667851,101668903
+chr10   NR_024130       101686965,101687916     101687056,101687997
+chr10   NM_015221       101714970       101716962
+chr10   NR_024130       101715430,101716238,101716545   101715589,101716348,101718755
+$ cat test |datamash -g 1,4 countunique 2 countunique 3
+chr10   NR_031619       1       1
+chr10   NM_015221       13      13
+chr10   NR_024130       2       2
+chr10   NM_015221       1       1
+chr10   NR_024130       3       3
+```
+## Further Readings
+以上只是对GNU datamash的一个简单介绍，更多的介绍以及帮助信息可以在GNU datamash的主页<http://www.gnu.org/software/datamash/>找到，同时官方也有一份更详细的Example学习手册<http://www.gnu.org/software/datamash/examples/>，更加完整的帮助可以用man datamash或者info datamash得到。
+
+********
