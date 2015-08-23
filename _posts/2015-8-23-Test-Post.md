@@ -2,6 +2,7 @@
 layout: post
 title: GNU datamash介绍
 ---
+
 ## Introduction
 [GNU datamash](http://www.gnu.org/software/datamash/)是一个在命令行下做基本统计汇总（例如均值，标准差，quantils，最大最小值等）的简单工具，对于经常需要在命令行下做一些data valadation和基本的统计汇总的人来说是一个非常有用的工具。
 
