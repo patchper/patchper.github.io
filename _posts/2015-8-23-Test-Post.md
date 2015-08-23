@@ -32,19 +32,13 @@ $ seq 12|paste - - -|datamash sum 1 sum 2 sum 3
 22      26      30
 ```
 首先sum就是operation，1 2 3都是列号。上面的命令就是对1，2，3列分别求和。
-当然operation不止sum，datamash --help中可以看到全部：
-```Python
-File operations:
-  transpose, reverse ##
+当然operation不止sum，datamash --help就可以看到，其中与数值统计相关的有：
+```
 Numeric Grouping operations:
-  sum, min, max, absmin, absmax
-Textual/Numeric Grouping operations:
-  count, first, last, rand 
-  unique, collapse, countunique
+  sum, min, max, absmin, absmax  ##求和，最小值，最大值，绝对值最小，绝对值最大
 Statistical Grouping operations:
-  mean, median, q1, q3, iqr, mode, antimode
-  pstdev, sstdev, pvar, svar, mad, madraw
-  pskew, sskew, pkurt, skurt, dpo, jarque
-
+  mean, median, q1, q3, iqr, mode, antimode  ##平均，中位数，第一个四分位，第三个四分位，四分位间距，众数
+  pstdev, sstdev, pvar, svar, mad, madraw    ##总体标准差，样本标准差，总体方差，样本方差，Median Absolute Deviation，Median Absolute Deviation raw
+  pskew, sskew, pkurt, skurt, dpo, jarque    ##这里不太懂，可以去看文档。
 ```
 
