@@ -23,7 +23,7 @@ $ seq 12|paste - - -|datamash sum 1 sum 2 sum 3
 以前这种工作一般是写一些one-liner或者小脚本然后做alias实现的，实话说写多了容易忘。有了datamash之后就能轻松搞定了，速度也快了不少。
 
 ## Install
-安装没什么可说的，debian的软件仓库里有，编译也就是普通的./configure make make install三部曲。
+安装没什么可说的，debian的软件仓库里有，编译也是普通的configure make make install三部曲。
 
 ## Examples
 datamash的使用方法和一般的命令行程序相似，格式为`datamash [options] operation column [operation2 column2] ...`  
