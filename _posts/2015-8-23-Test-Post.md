@@ -41,4 +41,29 @@ Statistical Grouping operations:
   pstdev, sstdev, pvar, svar, mad, madraw    ##总体标准差，样本标准差，总体方差，样本方差，Median Absolute Deviation，Median Absolute Deviation raw
   pskew, sskew, pkurt, skurt, dpo, jarque    ##这里不太懂，可以去看文档。
 ```
-
+更多的时候需要的是对某一列进行分类汇总处理，这种情况在awk，perl里就要使用关联数组，但在datamash中只要在选项中使用`-g`参数指定分组的列号即可。
+```
+ $ seq 12|paste <(printf "%s\n" a b b c c c) - - | datamash -g 1 sum 2 mean 3
+ a       1       2
+ b       8       5
+ c       27      10
+```
+以上的例子即是按第一列分组，并计算第二列的和以及第三列的均值。  
+值得注意的是，和uniq相似，如果输出没有排序，则分组的结果就会不正确：
+```
+$ seq 12|paste <(printf "%s\n" a c b c b c) - - | datamash -g 1 sum 2 mean 3
+a       1       2
+c       3       4
+b       5       6
+c       7       8
+b       9       10
+c       11      12
+```
+这时就要使用`-s`先排序再分组，也可以使用sort排序后再pipe到datamash中。
+```
+$ seq 12|paste <(printf "%s\n" a c b c b c) - - | datamash -s -g 1 sum 2 mean 3
+a       1       2
+b       14      8
+c       21      8
+```
+有时我们的输入表格是有表头的，这种表格在awk中就要指定NR做不同的处理，但datamash中有着专门处理表头的参数：  
