@@ -32,7 +32,7 @@ datamash的使用方法和一般的命令行程序相似，格式为`datamash [o
 $ seq 12|paste - - -|datamash sum 1 sum 2 sum 3
 22      26      30
 ```
-首先`sum`就是operation，1 2 3都是列号。上面的命令就是对1，2，3列分别求和。
+首先`sum`就是operation，1 2 3都是列号。上面的命令就是对1，2，3列分别求和。  
 当然operation不止`sum`，`datamash --help`就可以看到，其中与数值统计相关的有：
 ```
 Numeric Grouping operations:
@@ -181,5 +181,3 @@ chr10   NR_024130       3       3
 ```
 ## Further Readings
 以上只是对GNU datamash的一个简单介绍，更多的介绍以及帮助信息可以在GNU datamash的主页<http://www.gnu.org/software/datamash/>找到，同时官方也有一份更详细的Example学习手册<http://www.gnu.org/software/datamash/examples/>，更加完整的帮助可以用man datamash或者info datamash得到。
-
-********
