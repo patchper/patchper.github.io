@@ -1,6 +1,7 @@
 ---
 layout: post
 title: GNU datamash介绍
+tag: datamash
 ---
 
 ## Introduction
