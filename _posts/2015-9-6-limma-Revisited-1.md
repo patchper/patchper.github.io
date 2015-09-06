@@ -218,3 +218,53 @@ attr(,"contrasts")$Treatment
 稍加计算就可以看出\\(\\beta\_{4}\\)是\\(y\_{2}-y\_{1},y\_{4}-y\_{3},y\_{6}-y\_{5}\\)的算术平均，而这也正是我们用传统方法估计的值。
 
 对于更加复杂的实验设计例如Factorial experiment，Multi level experiment等，linear model的能量就更加强大，但同时也要引入新的工具：contrastMatrix和contrasts.fit函数。contrastMatrix通常用来描述对于估计参数的比较信息，其行是估计参数的名字，列是比较的方式，其意义与设计矩阵类似。而contrasts.fit函数则可以将linear model的结果进行进一步比较。
+
+例如下面的Factorial experiment，我们希望看到同一处理下野生型和突变型的不同表现：
+
+Sample|Cell Type|Treatment
+---|---|---
+1|wt|control
+2|wt|treatment
+3|mu|control
+4|mu|control
+5|mu|treatment
+6|mu|treatment
+```R
+> treatment = factor(c("control","treatment","control","control","treatment","treatment"),levels=c("control","treatment"))
+> type = factor(c("wt","wt",rep("mu",4)),levels=c("wt","mu"))
+> model.matrix(~0+type+treatment:type)
+  typewt typemu typewt:treatmenttreatment typemu:treatmenttreatment
+1      1      0                         0                         0
+2      1      0                         1                         0
+3      0      1                         0                         0
+4      0      1                         0                         0
+5      0      1                         0                         1
+6      0      1                         0                         1
+attr(,"assign")
+[1] 1 1 2 2
+attr(,"contrasts")
+attr(,"contrasts")$type
+[1] "contr.treatment"
+
+attr(,"contrasts")$treatment
+[1] "contr.treatment"
+```
+可以看到，第三列的系数代表的是在treatment条件下wt的反应，第四列是treatment条件下mu的反应
+所以
+
+```R
+> fit2 <- contrasts.fit(fit,c(0,0,-1,1))
+```
+就是我们所要的在treatment条件下mu与wt不同的表现。同理
+
+```R
+> fit2 <- contrasts.fit(fit,c(-1,1,1,-1))
+```
+是control条件下mu与wt的不同表现。
+
+---
+写到这里也写了不少了，但也还仅仅只提到了limma中的线性模型的部分，但是我们也可以看到limma非常强大的部分了。总体说来，线性模型是limma的核心，设计矩阵与比较矩阵结合使得limma可以很方便的做非常广泛的分析，同时还允许在不同样品中分享信息，同时在简单的设计中也能和普通的处理方法保持兼容。后续的RNA-Seq分析软件edgeR也继承了这一系统，不过这就不在这里提了。
+
+更多的例子可以在limma的[说明书](http://www.bioconductor.org/packages/release/bioc/vignettes/limma/inst/doc/usersguide.pdf)中找到，本页的例子多数也是抄的那里的。
+
+
