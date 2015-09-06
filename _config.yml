@@ -57,6 +57,8 @@ baseurl: ""
 #
 
 markdown: redcarpet
+redcarpet:
+    extensions: ['tables']
 # markdown: kramdown
 highlighter: pygments
 permalink: /:title/

@@ -211,6 +211,11 @@ img {
   }
 }
 
+table, th, td {
+  border: 1px solid #bbb;
+  padding: 1px 6px 1px 6px;
+}
+
 nav {
   float: right;
   margin-top: 23px; // @TODO: Vertically middle align
