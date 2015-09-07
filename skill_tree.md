@@ -1,18 +1,17 @@
 ---
 layout: page
-title: My Skill Tree
+title: Bioinfo Skill Tree
 permalink: /skill_tree/
 ---
-自己整理的一些（自己认为的）生物信息学分析需要的技能，删除横线表示（自认为）已经掌握的技能，高亮的是现在正加紧学习的，自勉！
+自己整理的一些（自己的）生物信息学分析需要的技能，删除横线表示（自认为）已经掌握，自勉！
 
 ##Programming
 ###Linux & Bash
   * ~~Linux使用~~
-  * Linux下的编辑器的使用: vim
   * 常用的utils
     * awk: The AWK Programming Language(进度 50%)
-    * sort, uniq, sed, grep, split, fold, join, paste, shuf, head, tail, comm, tr, realpath
-    * xargs, parallel, tee
+    * sort, uniq, sed, grep, split, fold, join, paste, shuf, head, tail, 
+    * xargs, parallel
   * Bash使用初级
   * Bash编程
 
@@ -32,7 +31,7 @@ permalink: /skill_tree/
   * node.js
 
 ###Lua
-  * Lua初级：Lua程序设计，语言本身部分
+  * Lua初级：
   * Lua中级：
 
 ###Rust
@@ -40,19 +39,18 @@ permalink: /skill_tree/
 ###数据库
   * SQL语言
   * 常用数据库(MySQL, sqlite)
-  * NoSQL
+  * NOSQL
 
 ##统计学及数据处理
 
 ###R语言
-  * R初级：==R语言编程艺术，R语言实战==
+  * R初级：
   * R中级：
 
 ###Excel
-  * Excel效率手册
 
 ###Python Data Processing
-  * ==pandas==
+  * pandas
   * numpy and scipy
 
 ###统计学基础
@@ -67,7 +65,7 @@ permalink: /skill_tree/
 
 ##数据可视化
 * Excel：有时很好用
-* ==ggplot2==
+* ggplot2
 * lattice
 * Graph Visualization
 * 网页基础
@@ -88,22 +86,17 @@ permalink: /skill_tree/
 
 ###NGS通用技能
 * 通用的专用工具
-  * ~~bioawk~~, ~~datamash~~, 
-* Illumina下机数据处理工具
-  * bcl2fastq
+  * bioawk, seqtk, datamash, 
 * 序列处理工具
-  * seqtk
-  * cutadapt
 * Mapping工具
 * Interval操作工具
   * Bedtools, Bedops
 * SNP相关工具
 * File Specs
-  * ~~SAM, BAM~~
+  * SAM, BAM
   * VCF
 * 可视化工具
   * igv
-  * Sushi
   * circos
 * ~~HTSeq~~
 
@@ -113,10 +106,7 @@ permalink: /skill_tree/
 
 ###CAGE-Seq
 
-###Bis-Seq
-
 ##大数据专用技能
-* Java
 
 ##职场技能
 * PowerPoint, KeyNote
