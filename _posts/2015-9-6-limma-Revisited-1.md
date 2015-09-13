@@ -110,9 +110,11 @@ attr(,"contrasts")$f
  \\epsilon\_{6} \\\\
 \\end{bmatrix}
 \\]
-确定\\(\\beta\\)的方法可以有多种，一般来说使用[最小二乘法](https://zh.wikipedia.org/wiki/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95)。
+确定\\(\\hat\{\\beta\}\\)的方法可以有多种，一般来说使用[最小二乘法](https://zh.wikipedia.org/wiki/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95)。
 
-然而得出的\\(\\beta\\)有什么意义呢？在本例中把上面的矩阵展开看：
+###线性模型的意义
+
+上面已经得到了\\(\\hat\{\\beta\}\\)，然而得出的\\(\\hat\{\\beta\}\\)有什么意义呢？在本例中把上面的矩阵展开看：
 
 \\[
 y\_{1}=\\beta\_{1}+\\epsilon\_{1} \\\\
@@ -216,6 +218,8 @@ attr(,"contrasts")$Treatment
 \\end{bmatrix}
 \\]
 稍加计算就可以看出\\(\\beta\_{4}\\)是\\(y\_{2}-y\_{1},y\_{4}-y\_{3},y\_{6}-y\_{5}\\)的算术平均，而这也正是我们用传统方法估计的值。
+
+###线性模型的优势：更复杂的试验设计
 
 对于更加复杂的实验设计例如Factorial experiment，Multi level experiment等，linear model的能量就更加强大，但同时也要引入新的工具：contrastMatrix和contrasts.fit函数。contrastMatrix通常用来描述对于估计参数的比较信息，其行是估计参数的名字，列是比较的方式，其意义与设计矩阵类似。而contrasts.fit函数则可以将linear model的结果进行进一步比较。
 
